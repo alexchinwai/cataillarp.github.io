@@ -39,7 +39,7 @@
       if (x <= -setW) x += setW; // wrap exactly at the measured distance
     }
 
-    belt.style.transform = `translate3d(${x}px,0,0)`;
+belt.style.transform = `translate3d(${Math.round(x)}px,0,0)`;
     requestAnimationFrame(tick);
   }
 
