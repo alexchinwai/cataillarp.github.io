@@ -74,6 +74,11 @@ body {
   align-items: center;
   overflow: hidden;
 }
+@supports (height: 100svh) {
+  .hero { min-height: 70svh; }
+}
+
+
 .hero__content { position: relative; z-index: 1 }
 
 .marquee {
@@ -254,6 +259,11 @@ body {
   will-change:transform;
   transform:translate3d(0,0,0);
   position:relative;
+  position: relative;             /* needed for ::before/::after holes */
+  will-change: transform;
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
+  contain: layout paint;          /* isolate paints */
 }
 
 /* Moving square holes on the belt */
@@ -284,4 +294,10 @@ body {
   width:auto;
   object-fit:cover;
   border-radius:10px;
+}
+
+html, body { overscroll-behavior-y: none; }   /* stops page rubber-band */
+
+@supports (-webkit-touch-callout: none) {
+  .nav { backdrop-filter: none; background: rgba(13,15,18,.9); }
 }
