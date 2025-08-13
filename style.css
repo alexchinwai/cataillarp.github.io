@@ -18,30 +18,63 @@
 }
 
 /* ====== Basics ====== */
-* { box-sizing: border-box }
-html, body { height: 100% }
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
 body {
   margin: 0;
   color: var(--text);
   background: linear-gradient(180deg, var(--bg), var(--bg2));
+  padding-top: var(--nav-h, 64px);
+  /* will be set by JS; 64px fallback */
+  padding-top: calc(var(--nav-h, 64px) + env(safe-area-inset-top));
+  /* iOS notch */
+
 }
-.container { width: min(1100px, 92%); margin-inline: auto }
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto
+}
 
 /* ====== Nav ====== */
 .nav {
-  position: sticky;
+  position: fixed;
+  /* was: sticky */
   top: 0;
-  z-index: 50;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* above everything */
+  transition: transform 200ms ease;
+  will-change: transform;
   background: rgba(13, 15, 18, .7);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid #ffffff14;
+
 }
+
+.nav--hidden {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav {
+    transition: none;
+  }
+}
+
 .nav__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: .9rem 0;
 }
+
 .brand {
   display: flex;
   align-items: center;
@@ -50,6 +83,7 @@ body {
   text-decoration: none;
   font-weight: 900;
 }
+
 .brand .dot {
   width: 10px;
   height: 10px;
@@ -57,14 +91,22 @@ body {
   background: radial-gradient(circle at 30% 30%, #fff, #ffd24d 70%);
   box-shadow: 0 0 10px 2px rgba(255, 210, 77, .28);
 }
-.links { display: flex; gap: .8rem }
+
+.links {
+  display: flex;
+  gap: .8rem
+}
+
 .links a {
   color: var(--text);
   text-decoration: none;
   padding: .5rem .8rem;
   border-radius: 999px;
 }
-.links a:hover { background: #ffffff14 }
+
+.links a:hover {
+  background: #ffffff14
+}
 
 /* ====== Hero with film-strip background ====== */
 .hero {
@@ -74,12 +116,18 @@ body {
   align-items: center;
   overflow: hidden;
 }
+
 @supports (height: 100svh) {
-  .hero { min-height: 70svh; }
+  .hero {
+    min-height: 70svh;
+  }
 }
 
 
-.hero__content { position: relative; z-index: 1 }
+.hero__content {
+  position: relative;
+  z-index: 1
+}
 
 .marquee {
   display: inline-block;
@@ -89,19 +137,25 @@ body {
   color: #111;
   font-weight: 900;
 }
+
 .title {
   margin: .8rem 0 .5rem;
   font-size: clamp(32px, 6vw, 68px);
   font-weight: 1000;
   line-height: 1.05;
 }
-.subtitle { color: var(--muted) }
+
+.subtitle {
+  color: var(--muted)
+}
+
 .cta {
   display: flex;
   gap: .8rem;
   flex-wrap: wrap;
   margin-top: 14px;
 }
+
 .btn {
   display: inline-block;
   padding: 1rem 1.2rem;
@@ -110,35 +164,45 @@ body {
   color: var(--text);
   border: 2px solid #ffffff25;
 }
+
 .btn--solid {
   background: linear-gradient(180deg, #2b3442, #202835);
   border-color: transparent;
   box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
 }
-.btn--ghost { background: transparent }
+
+.btn--ghost {
+  background: transparent
+}
 
 /* === Film-strip background === */
 .filmstrip {
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none; /* doesn’t block hero buttons/links */
+  pointer-events: none;
+  /* doesn’t block hero buttons/links */
 }
+
 .filmstrip .viewport {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
+
 .filmstrip .belt {
   position: relative;
-  height: 100%; /* fill hero vertically */
+  height: 100%;
+  /* fill hero vertically */
   display: flex;
   align-items: center;
   gap: var(--gap);
   width: max-content;
-  padding-block: 30px; /* black top/bottom strip */
+  padding-block: 30px;
+  /* black top/bottom strip */
   background: var(--strip);
 }
+
 .filmstrip .belt::before,
 .filmstrip .belt::after {
   content: "";
@@ -152,12 +216,20 @@ body {
       transparent var(--hole-size) calc(var(--hole-size) + var(--hole-gap)));
   pointer-events: none;
 }
-.filmstrip .belt::before { top: 6px }
-.filmstrip .belt::after { bottom: 6px }
+
+.filmstrip .belt::before {
+  top: 6px
+}
+
+.filmstrip .belt::after {
+  bottom: 6px
+}
+
 .filmstrip .frame {
   flex: 0 0 auto;
   height: 100%;
 }
+
 .filmstrip .frame img {
   display: block;
   height: 100%;
@@ -172,13 +244,11 @@ body {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, .55),
-    rgba(0, 0, 0, .15) 35%,
-    rgba(0, 0, 0, .35) 65%,
-    rgba(0, 0, 0, .75)
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, .55),
+      rgba(0, 0, 0, .15) 35%,
+      rgba(0, 0, 0, .35) 65%,
+      rgba(0, 0, 0, .75));
 }
 
 /* ====== Sections ====== */
@@ -186,39 +256,106 @@ body {
   padding: 72px 0;
   border-top: 1px solid #ffffff10;
 }
-.section.alt { background: #0f1217 }
-.h2 { margin: 0 0 .5rem; color: var(--accent); font-weight: 900 }
-.lead { color: var(--muted) }
+
+.section.alt {
+  background: #0f1217
+}
+
+.h2 {
+  margin: 0 0 .5rem;
+  color: var(--accent);
+  font-weight: 900;
+  text-align: center;
+}
+h3{
+  text-align: center;
+}
+.lead {
+  color: var(--muted)
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 12px;
+  text-align: center;
 }
+
 .card {
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px;
 }
+
 .posters {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
+
 .posters .ph {
   aspect-ratio: 148/210;
   background: #1a2130;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+#posters>div>div>figure>figcaption {
+  text-align: center;
+}
+
+.center {
+  text-align: center
+}
+
+/* 保持外觀與其他 poster 一致 */
+.posters .more-poster .ph {
+  background: #1a2130;
   border: 1px solid #ffffff1a;
   border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
-.center { text-align: center }
+
+/* 中間的文字 */
+.posters .more-poster .more-text {
+  color: var(--text);
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-align: center;
+  pointer-events: none;
+  /* 讓文字不影響點擊 */
+}
+
+/* Hover 效果：放大 + 提亮 */
+.posters .more-poster a:hover .ph {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* 手機觸控閃動效果 */
+.posters .more-poster a:active .ph {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
 
 /* ====== Responsive ====== */
 @media (max-width:900px) {
-  .cards { grid-template-columns: 1fr }
-  .posters { grid-template-columns: 1fr 1fr }
+  .cards {
+    grid-template-columns: 1fr
+  }
+
+  .posters {
+    grid-template-columns: 1fr 1fr
+  }
 }
+
 @media (max-width:560px) {
   :root {
     --frame-h: 110px;
@@ -227,77 +364,308 @@ body {
     --hole-gap: 8px;
     --duration: 22s;
   }
-  .posters { grid-template-columns: 1fr }
+
+  .posters {
+    grid-template-columns: 1fr
+  }
 }
 
-:root{
+:root {
   --frame-h: clamp(150px, 32vh, 260px);
   --gap: 16px;
   --hole-size: 16px;
   --hole-gap: 12px;
   --strip: #111;
-  --pxps: 80; /* speed in px/sec */
+  --pxps: 80;
+  /* speed in px/sec */
 }
 
-.film{
-  position:relative;
-  width:min(1100px, 92vw);
-  height:calc(var(--frame-h) + 60px);
-  overflow:hidden;
-  border-radius:12px;
-  box-shadow:0 10px 24px rgba(0,0,0,.3);
+.film {
+  position: relative;
+  width: min(1100px, 92vw);
+  height: calc(var(--frame-h) + 60px);
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .3);
 }
 
 /* Belt contains both holes & frames so they move together */
-.belt{
-  display:flex;
-  align-items:center;
-  gap:var(--gap);
-  height:100%;
-  background:var(--strip);
-  padding-block:30px;
-  will-change:transform;
-  transform:translate3d(0,0,0);
-  position:relative;
-  position: relative;             /* needed for ::before/::after holes */
+.belt {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  height: 100%;
+  background: var(--strip);
+  padding-block: 30px;
   will-change: transform;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
+  position: relative;
+  position: relative;
+  /* needed for ::before/::after holes */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  contain: layout paint;          /* isolate paints */
+  contain: layout paint;
+  /* isolate paints */
 }
 
 /* Moving square holes on the belt */
 #belt::before,
-#belt::after{
-  content:"";
-  position:absolute; left:0; right:0;
-  height:var(--hole-size);
+#belt::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--hole-size);
   background:
-    repeating-linear-gradient(
-      90deg,
+    repeating-linear-gradient(90deg,
       #fff 0 var(--hole-size),
-      transparent var(--hole-size) calc(var(--hole-size) + var(--hole-gap))
-    );
-  pointer-events:none;
-  z-index: 1;                /* above photos */
-}
-#belt::before{ top:8px }
-#belt::after { bottom:8px }
-
-.frame{
-  flex:0 0 auto;
-  height:100%;
-}
-.frame img{
-  display:block;
-  height:100%;
-  width:auto;
-  object-fit:cover;
-  border-radius:10px;
+      transparent var(--hole-size) calc(var(--hole-size) + var(--hole-gap)));
+  pointer-events: none;
+  z-index: 1;
+  /* above photos */
 }
 
-html, body { overscroll-behavior-y: none; }   /* stops page rubber-band */
+#belt::before {
+  top: 8px
+}
+
+#belt::after {
+  bottom: 8px
+}
+
+.frame {
+  flex: 0 0 auto;
+  height: 100%;
+}
+
+.frame img {
+  display: block;
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+/* stops page rubber-band */
 
 @supports (-webkit-touch-callout: none) {
-  .nav { backdrop-filter: none; background: rgba(13,15,18,.9); }
+  .nav {
+    backdrop-filter: none;
+    background: rgba(13, 15, 18, .9);
+  }
+}
+
+/* === FAQ dropdown animation === */
+/* 外觀樣式可保留 */
+#faq .faq-item {
+  border: 1px solid #ffffff18;
+  border-radius: 12px;
+  padding: .75rem 1rem;
+  background: #0f1217;
+}
+
+#faq .faq-item+.faq-item {
+  margin-top: 10px;
+}
+
+#faq summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+#faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 箭頭：用 .is-open 控制（非 [open]） */
+#faq summary::after {
+  content: "";
+  margin-left: auto;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(-45deg);
+  transition: transform .1s linear;
+}
+
+#faq .faq-item.is-open summary::after {
+  transform: rotate(45deg);
+}
+
+/* ——重點：高度動畫（JS 會設定 height）—— */
+#faq .answer {
+  height: 0;
+  overflow: hidden;
+  transition: height .1s linear;
+}
+
+/* 原本：先等 is-open class 才淡入 */
+#faq .answer__inner>* {
+  margin: .6rem 0 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity .1s linear, transform .1s linear;
+}
+
+/* 改成：展開時立即開始淡入 */
+#faq .faq-item.is-opening .answer__inner>*,
+#faq .faq-item.is-open .answer__inner>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- Responsive Nav ---------- */
+/* hamburger button (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0 0 0 .5rem;
+  position: relative;
+}
+
+.nav-toggle span {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: var(--text);
+  transform-origin: center;
+  transition: transform .25s ease, opacity .2s ease, top .25s ease;
+}
+
+.nav-toggle span:nth-child(1) {
+  top: 12px;
+}
+
+.nav-toggle span:nth-child(2) {
+  top: 19px;
+}
+
+.nav-toggle span:nth-child(3) {
+  top: 26px;
+}
+
+.nav.is-open .nav-toggle span:nth-child(1) {
+  top: 19px;
+  transform: rotate(45deg);
+}
+
+.nav.is-open .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav.is-open .nav-toggle span:nth-child(3) {
+  top: 19px;
+  transform: rotate(-45deg);
+}
+
+/* mobile panel */
+@media (max-width: 900px) {
+  .nav__row {
+    gap: .5rem;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav .links {
+    position: fixed;
+    top: calc(var(--nav-h, 64px) + env(safe-area-inset-top));
+    right: 0;
+    width: min(92vw, 360px);
+    height: calc(100svh - var(--nav-h, 64px) - env(safe-area-inset-top));
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    padding: 12px;
+    background: #0f1217;
+    border-left: 1px solid #ffffff1a;
+    transform: translateX(100%);
+    transition: transform .25s ease;
+    z-index: 1001;
+  }
+
+  .nav .links a {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  .nav .links a:active {
+    background: #ffffff12;
+  }
+
+  .nav.is-open .links {
+    transform: translateX(0);
+  }
+
+  /* backdrop */
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .35);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+  }
+
+  .nav.is-open+.menu-backdrop {
+    display: block;
+  }
+
+  .menu-backdrop[hidden] {
+    display: none;
+  }
+
+  /* lock page scroll when menu open */
+  body.menu-open {
+    overflow: hidden;
+  }
+}
+
+/* desktop keeps your old inline menu */
+@media (min-width: 901px) {
+  .nav .links {
+    display: flex;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.brand-logo {
+        height: 4rem;
+  width: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .brand-logo {
+    height: 3rem; /* slightly smaller on mobile */
+  }
 }
