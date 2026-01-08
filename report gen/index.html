@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專業財務報告生成器 | IFA Financial Report</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- test -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Input View -->
+    <div id="inputView" class="view active">
+        <div class="container">
+            <header class="app-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <span class="logo-text">IFA Report Generator</span>
+                </div>
+                <p class="tagline">專業財務報告生成器</p>
+            </header>
+
+            <main class="input-section">
+                <div class="card glass-card">
+                    <h2 class="card-title">
+                        <span class="icon">📋</span>
+                        輸入客戶資料
+                    </h2>
+                    <p class="card-desc">請將客戶的財務資料貼到下方，系統將自動解析並生成專業報告</p>
+
+                    <div class="textarea-wrapper">
+                        <textarea id="clientData" placeholder="在此貼上客戶資料...
+
+例如：
+姓名：陳大文
+年齡：35歲
+每月收入：$50,000
+資產：現金 $500,000、股票 $300,000
+保險：人壽保險 保額$1,000,000
+財務目標：5年內置業..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="loadSample" class="btn btn-secondary">
+                            <span class="icon">📎</span>
+                            載入示例
+                        </button>
+                        <button id="generateReport" class="btn btn-primary">
+                            <span class="icon">✨</span>
+                            生成報告
+                        </button>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="app-footer">
+                <p>© 2026 IFA Financial Report Generator</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Report View -->
+    <div id="reportView" class="view">
+        <div class="report-container">
+            <!-- Print Cover Page -->
+            <div class="report-cover no-screen">
+                <div class="cover-content">
+                    <div class="cover-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <div class="cover-title-group">
+                        <h1 class="cover-title">個人財務分析報告</h1>
+                        <p class="cover-subtitle">Personal Financial Analysis Report</p>
+                    </div>
+                    <div class="cover-details">
+                        <div class="detail-item">
+                            <span class="label">客戶名稱</span>
+                            <span class="value" id="coverClientName">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">報告日期</span>
+                            <span class="value" id="coverDate">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">編號</span>
+                            <span class="value" id="coverId">--</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cover-footer">
+                    <p>Professional Financial Planning Service</p>
+                </div>
+                <div class="cover-decoration"></div>
+            </div>
+
+            <!-- Report Header (Screen Only) -->
+            <header class="report-header no-print">
+                <div class="report-header-content">
+                    <div class="report-branding">
+                        <div class="report-logo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                <path d="M2 17l10 5 10-5" />
+                                <path d="M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h1>個人財務分析報告</h1>
+                            <p class="report-subtitle">Personal Financial Analysis Report</p>
+                        </div>
+                    </div>
+                    <div class="report-meta">
+                        <p class="report-date" id="reportDate"></p>
+                        <p class="report-id" id="reportId"></p>
+                    </div>
+                </div>
+                <div class="header-decoration"></div>
+            </header>
+
+            <!-- Client Info Section -->
+            <section class="report-section client-section">
+                <div class="section-header">
+                    <h2><span class="section-icon">👤</span> 客戶基本資料</h2>
+                </div>
+                <div class="client-info-grid" id="clientInfoGrid">
+                    <!-- Will be populated by JS -->
+                </div>
+            </section>
+
+            <!-- Cash Flow Section -->
+            <section class="report-section cashflow-section">
+                <div class="section-header">
+                    <h2><span class="section-icon">💰</span> 每月現金流分析</h2>
+                </div>
+                <div class="cashflow-grid">
+                    <div class="cashflow-card income-card">
+                        <h3>月收入</h3>
+                        <div class="cashflow-total" id="totalIncome">$0</div>
+                        <div class="cashflow-breakdown" id="incomeBreakdown">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                    <div class="cashflow-chart-container">
+                        <canvas id="cashflowChart"></canvas>
+                    </div>
+                    <div class="cashflow-card expense-card">
+                        <h3>月支出</h3>
+                        <div class="cashflow-total" id="totalExpense">$0</div>
+                        <div class="cashflow-breakdown" id="expenseBreakdown">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="cashflow-summary">
+                    <div class="summary-item positive">
+                        <span class="label">每月結餘</span>
+                        <span class="value" id="monthlySurplus">$0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">儲蓄率</span>
+                        <span class="value" id="savingsRate">0%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assets Section -->
+            <section class="report-section assets-section">
+                <div class="section-header">
+                    <h2><span class="section-icon">📊</span> 資產分佈 <button class="add-item-btn no-print"
+                            onclick="addItem('asset')">+ 新增項目</button></h2>
+                </div>
+                <div class="assets-grid">
+                    <div class="assets-chart-container">
+                        <canvas id="assetsChart"></canvas>
+                        <div class="total-assets-overlay">
+                            <span class="label">總資產</span>
+                            <span class="value" id="totalAssets">$0</span>
+                        </div>
+                    </div>
+                    <div class="assets-breakdown" id="assetsBreakdown">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stock Holdings Section -->
+            <section class="report-section stocks-section" id="stocksSection">
+                <div class="section-header">
+                    <h2><span class="section-icon">📈</span> 股票持倉詳情</h2>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="stocksTable">
+                        <thead>
+                            <tr>
+                                <th>股票代碼</th>
+                                <th>持有股數</th>
+                                <th>市場</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stocksTableBody">
+                            <!-- Will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Insurance Section -->
+            <section class="report-section insurance-section">
+                <div class="section-header">
+                    <h2><span class="section-icon">🛡️</span> 現有保險組合 <button class="add-item-btn no-print"
+                            onclick="addItem('insurance')">+ 新增保單</button></h2>
+                </div>
+                <div class="insurance-cards" id="insuranceCards">
+                    <!-- Will be populated by JS -->
+                </div>
+                <div class="insurance-summary">
+                    <div class="summary-item">
+                        <span class="label">年度總保費</span>
+                        <span class="value" id="totalPremium">$0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Liabilities Section -->
+            <section class="report-section liabilities-section" id="liabilitiesSection">
+                <div class="section-header">
+                    <h2><span class="section-icon">💳</span> 負債狀況 <button class="add-item-btn no-print"
+                            onclick="addItem('liability')">+ 新增負債</button></h2>
+                </div>
+                <div class="liabilities-grid" id="liabilitiesGrid">
+                    <!-- Will be populated by JS -->
+                </div>
+                <div class="liabilities-summary">
+                    <div class="summary-item negative">
+                        <span class="label">總負債</span>
+                        <span class="value" id="totalLiabilities">$0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Net Worth Section -->
+            <section class="report-section networth-section">
+                <div class="section-header">
+                    <h2><span class="section-icon">⚖️</span> 淨資產分析</h2>
+                </div>
+                <div class="networth-chart-container">
+                    <canvas id="networthChart"></canvas>
+                </div>
+                <div class="networth-summary">
+                    <div class="networth-item assets">
+                        <span class="label">總資產</span>
+                        <span class="value" id="networthAssets">$0</span>
+                    </div>
+                    <div class="networth-operator">−</div>
+                    <div class="networth-item liabilities">
+                        <span class="label">總負債</span>
+                        <span class="value" id="networthLiabilities">$0</span>
+                    </div>
+                    <div class="networth-operator">=</div>
+                    <div class="networth-item total">
+                        <span class="label">淨資產</span>
+                        <span class="value" id="netWorth">$0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Goals Section -->
+            <section class="report-section goals-section">
+                <div class="section-header">
+                    <h2><span class="section-icon">🎯</span> 財務目標規劃</h2>
+                </div>
+                <div class="goals-timeline" id="goalsTimeline">
+                    <!-- Will be populated by JS -->
+                </div>
+            </section>
+
+            <!-- Report Actions -->
+            <div class="report-actions no-print">
+                <button id="backToInput" class="btn btn-secondary">
+                    <span class="icon">←</span>
+                    返回編輯
+                </button>
+                <button id="downloadReport" class="btn btn-primary">
+                    <span class="icon">📥</span>
+                    下載報告 (PDF)
+                </button>
+            </div>
+
+            <!-- Report Footer -->
+            <footer class="report-footer">
+                <div class="footer-content">
+                    <p class="disclaimer">本報告僅供參考，不構成任何投資建議。所有數據基於客戶提供的資料。</p>
+                    <p class="copyright">© 2026 IFA Financial Planning Services</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
