@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專業財務報告生成器 | IFA Financial Report</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- Input View -->
+    <div id="inputView" class="view active">
+        <div class="container">
+            <header class="app-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <span class="logo-text">IFA Report Generator</span>
+                </div>
+                <p class="tagline">專業財務報告生成器</p>
+            </header>
+
+            <main class="input-section">
+                <div class="card glass-card">
+                    <h2 class="card-title">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                        </svg>
+                        輸入客戶資料
+                    </h2>
+                    <p class="card-desc">請將客戶的財務資料貼到下方，系統將自動解析並生成專業報告</p>
+
+                    <div class="textarea-wrapper">
+                        <textarea id="clientData" placeholder="在此貼上客戶資料...
+
+例如：
+姓名：陳大文
+年齡：35歲
+每月收入：$50,000
+資產：現金 $500,000、股票 $300,000
+保險：人壽保險 保額$1,000,000
+財務目標：5年內置業..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="loadSample" class="btn btn-secondary">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+                            </svg>
+                            載入示例
+                        </button>
+                        <button id="generateReport" class="btn btn-primary">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                            生成報告
+                        </button>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="app-footer">
+                <p>© 2026 IFA Financial Report Generator</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Report View -->
+    <div id="reportView" class="view">
+        <div class="report-container">
+            <!-- Print Cover Page -->
+            <div class="report-cover">
+                <div class="cover-content">
+                    <div class="cover-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <div class="cover-title-group">
+                        <h1 class="cover-title">個人財務分析報告</h1>
+                        <p class="cover-subtitle">Personal Financial Analysis Report</p>
+                    </div>
+                    <div class="cover-details">
+                        <div class="detail-item">
+                            <span class="label">客戶名稱</span>
+                            <span class="value" id="coverClientName">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">報告日期</span>
+                            <span class="value" id="coverDate">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">編號</span>
+                            <span class="value" id="coverId">--</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cover-footer">
+                    <p>Professional Financial Planning Service</p>
+                </div>
+                <div class="cover-decoration"></div>
+            </div>
+
+            <!-- Report Header (Compact) -->
+            <header class="report-header-compact no-print">
+                <div class="header-left">
+                    <div class="compact-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <div class="header-titles">
+                        <h1>個人財務分析報告</h1>
+                        <p>Personal Financial Analysis Report</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span id="reportDate">報告日期：--</span>
+                    <span id="reportId">編號：--</span>
+                </div>
+            </header>
+
+            <!-- Compact Dashboard Layout -->
+            <div class="compact-dashboard">
+
+                <!-- Client Information Bar -->
+                <div class="client-bar center-content">
+                    <div class="client-bar-content" id="clientInfoGrid">
+                        <!-- JS populates -->
+                    </div>
+                </div>
+
+                <!-- KPI Strip -->
+                <div class="kpi-strip">
+                    <div class="kpi-item kpi-primary">
+                        <span class="kpi-label">淨資產</span>
+                        <span class="kpi-value" id="netWorth">$0</span>
+                    </div>
+                    <div class="kpi-item kpi-success">
+                        <span class="kpi-label">每月盈餘</span>
+                        <span class="kpi-value" id="monthlySurplus">$0</span>
+                    </div>
+                    <div class="kpi-item kpi-info">
+                        <span class="kpi-label">儲蓄率</span>
+                        <span class="kpi-value" id="savingsRate">0%</span>
+                    </div>
+                    <div class="kpi-item">
+                        <span class="kpi-label">總資產</span>
+                        <span class="kpi-value" id="totalAssets">$0</span>
+                    </div>
+                </div>
+
+                <!-- Cash Flow Analysis Section (3 Columns) -->
+                <div class="section-compact">
+                    <div class="section-header-compact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                        <span>每月現金流分析</span>
+                    </div>
+
+                    <!-- 2-Column Charts: Income | Expense -->
+                    <div class="cashflow-charts-grid two-cols">
+                        <!-- Income Distribution -->
+                        <div class="cf-chart-col">
+                            <div class="cf-chart-header success">
+                                <span>收入分佈</span>
+                                <span class="cf-total" id="totalIncome">$0</span>
+                                <button class="add-item-btn-mini no-print" onclick="addItem('income')"
+                                    title="新增收入">+</button>
+                            </div>
+                            <div class="cf-chart-wrapper">
+                                <canvas id="incomeChart"></canvas>
+                            </div>
+                            <div class="compact-list" id="incomeBreakdown">
+                                <!-- JS populates -->
+                            </div>
+                        </div>
+
+                        <!-- Expense Distribution -->
+                        <div class="cf-chart-col">
+                            <div class="cf-chart-header danger">
+                                <span>支出分佈</span>
+                                <span class="cf-total" id="totalExpense">$0</span>
+                                <button class="add-item-btn-mini no-print" onclick="addItem('expense')"
+                                    title="新增支出">+</button>
+                            </div>
+                            <div class="cf-chart-wrapper">
+                                <canvas id="expenseChart"></canvas>
+                            </div>
+                            <div class="compact-list" id="expenseBreakdown">
+                                <!-- JS populates -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cash Flow Comparison - Single Stacked Bar -->
+                    <div class="cashflow-bar-section">
+                        <div class="cf-bar-label">收支對比</div>
+                        <div class="cf-stacked-bar" id="cashflowStackedBar">
+                            <div class="cf-bar-income" id="cfBarIncome">
+                                <span class="bar-pct" id="cfIncomePct"></span>
+                            </div>
+                            <div class="cf-bar-expense" id="cfBarExpense">
+                                <span class="bar-pct" id="cfExpensePct"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Layout: Assets & Liabilities -->
+                <div class="section-row">
+                    <div class="section-half">
+                        <div class="section-header-compact">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
+                            <span>資產配置</span>
+                            <span class="section-total success" id="totalAssetsHeader">$0</span>
+                            <button class="add-item-btn-mini no-print" onclick="addItem('asset')"
+                                title="新增資產">+</button>
+                        </div>
+                        <div class="cf-chart-wrapper">
+                            <canvas id="assetsChart"></canvas>
+                        </div>
+                        <div class="compact-list" id="assetsBreakdown">
+                            <!-- JS populates -->
+                        </div>
+                    </div>
+                    <div class="section-half">
+                        <div class="section-header-compact">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" />
+                            </svg>
+                            <span>負債分佈</span>
+                            <span class="section-total expense" id="totalLiabilities">$0</span>
+                            <button class="add-item-btn-mini no-print" onclick="addItem('liability')"
+                                title="新增負債">+</button>
+                        </div>
+                        <div class="cf-chart-wrapper">
+                            <canvas id="liabilitiesChart"></canvas>
+                        </div>
+                        <div class="compact-list" id="liabilitiesGrid">
+                            <!-- JS populates -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Net Worth Summary - Progress Bar Style -->
+                <div class="networth-summary-row">
+                    <div class="networth-progress-container">
+                        <div class="networth-simple">
+                            <span class="networth-label">淨值比</span>
+                            <span class="networth-percentage" id="networthRatioValue">--%</span>
+                        </div>
+                        <div class="networth-progress-bar">
+                            <div class="networth-progress-fill" id="networthProgressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Stock Holdings (Compact Table) -->
+                <div class="section-compact" id="stocksSection">
+                    <div class="section-header-compact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                            <polyline points="16 7 22 7 22 13" />
+                        </svg>
+                        <span>股票持倉</span>
+                        <button class="add-item-btn-mini no-print" onclick="addItem('stock')">+</button>
+                    </div>
+                    <table class="compact-table" id="stocksTable">
+                        <thead>
+                            <tr>
+                                <th>代碼</th>
+                                <th>股數</th>
+                                <th>市場</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stocksTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Insurance Section (Compact Cards) -->
+                <div class="section-compact">
+                    <div class="section-header-compact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                        <span>保險組合</span>
+                        <span class="section-total" id="totalPremium">$0/年</span>
+                        <button class="add-item-btn-mini no-print" onclick="addItem('insurance')">+</button>
+                    </div>
+                    <div class="insurance-compact-grid" id="insuranceCards">
+                        <!-- JS populates -->
+                    </div>
+                </div>
+
+                <!-- Financial Goals (Progress Bars) -->
+                <div class="section-compact">
+                    <div class="section-header-compact">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <circle cx="12" cy="12" r="6" />
+                            <circle cx="12" cy="12" r="2" />
+                        </svg>
+                        <span>財務目標</span>
+                        <button class="add-item-btn-mini no-print" onclick="addItem('goal')">+</button>
+                    </div>
+                    <div class="goals-compact" id="goalsTimeline">
+                        <!-- JS populates -->
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- Floating Report Actions -->
+            <div class="floating-actions no-print">
+                <button id="backToInput" class="btn btn-secondary btn-icon-only" title="返回編輯">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="19" y1="12" x2="5" y2="12" />
+                        <polyline points="12 19 5 12 12 5" />
+                    </svg>
+                </button>
+                <button id="downloadReport" class="btn btn-primary btn-icon-only" title="列印報告">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 6 2 18 2 18 9" />
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                        <rect x="6" y="14" width="12" height="8" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Report Footer -->
+            <footer class="report-footer no-print">
+                <div class="footer-content">
+                    <p class="disclaimer">本報告僅供參考，不構成任何投資建議。所有數據基於客戶提供的資料。</p>
+                    <p class="copyright">© 2026 IFA Financial Planning Services</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

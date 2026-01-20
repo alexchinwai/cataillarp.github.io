@@ -1,0 +1,10 @@
+}
+
+/* Hover Effects */
+.insurance-card:hover,
+.liability-card:hover,
+.asset-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
