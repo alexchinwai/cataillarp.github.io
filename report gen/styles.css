@@ -1,0 +1,3431 @@
+/* ============================================
+   IFA Financial Report Generator
+   Professional Dashboard Theme - Skill Optimized
+   ============================================ */
+
+/* CSS Variables - Slate & Blue Palette */
+:root {
+    /* Primary Colors - Trust Blue */
+    --primary-50: #EFF6FF;
+    --primary-100: #DBEAFE;
+    --primary-400: #60A5FA;
+    --primary-500: #3B82F6;
+    --primary-600: #2563EB;
+    --primary-700: #1D4ED8;
+    --primary-800: #1E40AF;
+    --primary-900: #1E3A8A;
+
+    /* Slate Scales */
+    --slate-50: #F8FAFC;
+    --slate-100: #F1F5F9;
+    --slate-200: #E2E8F0;
+    --slate-300: #CBD5E1;
+    --slate-400: #94A3B8;
+    --slate-500: #64748B;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1E293B;
+    --slate-900: #0F172A;
+
+    /* Semantic Mappings */
+    --bg-base: #FFFFFF;
+    --bg-subtle: var(--slate-50);
+    --bg-muted: var(--slate-100);
+
+    /* 6:3:1 Text Color Principle */
+    /* 60% Dominant - Main body text, headings, primary content */
+    --text-dominant: #1E293B;
+    /* slate-800 */
+    /* 30% Secondary - Supporting text, labels, descriptions */
+    --text-secondary: #64748B;
+    /* slate-500 */
+    /* 10% Accent - Highlights, links, important callouts */
+    --text-accent: #2563EB;
+    /* primary-600 */
+
+    --text-primary: var(--text-dominant);
+    --text-muted: var(--text-secondary);
+    --text-light: var(--slate-400);
+
+    --border-light: var(--slate-200);
+    --border-default: var(--slate-300);
+
+    /* Status Colors */
+    --success: #059669;
+    --success-bg: #ECFDF5;
+    --warning: #D97706;
+    --warning-bg: #FFFBEB;
+    --danger: #DC2626;
+    --danger-bg: #FEF2F2;
+
+    /* Chart Colors */
+    --chart-1: #2563EB;
+    --chart-2: #10B981;
+    --chart-3: #F59E0B;
+    --chart-4: #8B5CF6;
+    --chart-5: #EC4899;
+
+    /* Layout */
+    --container-max: 210mm;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Fonts */
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* Base Typography */
+body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    line-height: 1.5;
+    background: var(--slate-100);
+}
+
+/* Dashboard Grid Layout (Bento Style) */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.col-span-12 {
+    grid-column: span 12;
+}
+
+.col-span-8 {
+    grid-column: span 8;
+}
+
+.col-span-6 {
+    grid-column: span 6;
+}
+
+.col-span-4 {
+    grid-column: span 4;
+}
+
+.col-span-3 {
+    grid-column: span 3;
+}
+
+/* Dashboard Card */
+.dash-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s;
+}
+
+.dash-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* KPI Card */
+.kpi-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.kpi-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.kpi-value {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--primary-700);
+    margin-top: 0.5rem;
+}
+
+.kpi-trend {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+}
+
+.trend-up {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.trend-down {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+/* Report Header */
+.report-header-modern {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: var(--radius-md);
+}
+
+.brand-section h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--slate-900);
+}
+
+.brand-section p {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.meta-section {
+    text-align: right;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--slate-800);
+}
+
+.section-title svg {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-600);
+}
+
+/* Tables */
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.modern-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-default);
+    color: var(--text-muted);
+    font-weight: 600;
+    background: var(--slate-50);
+}
+
+.modern-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Buttons */
+.add-item-btn {
+    padding: 4px 10px;
+    background: var(--primary-600);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.2s;
+}
+
+.add-item-btn:hover {
+    background: var(--primary-700);
+}
+
+/* Charts */
+.chart-wrapper {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+
+/* View Management */
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+/* ============================================
+   INPUT VIEW STYLES
+   ============================================ */
+
+#inputView {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #E0F2FE 100%);
+}
+
+#inputView.active {
+    display: flex;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* App Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--primary-700) 0%, var(--primary-600) 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.logo-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-800);
+}
+
+.tagline {
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+/* Glass Card - Light mode */
+.glass-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.card-title .icon {
+    width: 28px;
+    height: 28px;
+    color: var(--primary-600);
+}
+
+.card-desc {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+/* Textarea */
+.textarea-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-default);
+    border-radius: var(--border-radius);
+    resize: vertical;
+    transition: all var(--transition-normal);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-600);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    background: white;
+}
+
+textarea::placeholder {
+    color: var(--text-light);
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.btn .icon {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.05);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-subtle);
+    border-color: var(--border-default);
+}
+
+/* Footer */
+.app-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* ============================================
+   REPORT VIEW STYLES - A4 Optimized
+   ============================================ */
+
+#reportView {
+    background: #F1F5F9;
+    /* Gray background for print preview feel */
+    min-height: 100vh;
+    padding: 2rem;
+    display: none;
+    justify-content: center;
+}
+
+#reportView.active {
+    display: flex !important;
+    /* Override block to flex for centering */
+}
+
+/* Floating Actions - Top Right Hover */
+.floating-actions {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body:hover .floating-actions {
+    opacity: 1;
+}
+
+.btn-icon-only {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-icon-only svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 0 !important;
+}
+
+/* Add Item Button */
+.add-item-btn {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    background: transparent;
+    border: 1px solid var(--primary-200);
+    color: var(--primary-600);
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: all 0.2s;
+}
+
+.add-item-btn:hover {
+    background: var(--primary-50);
+    border-color: var(--primary-400);
+    transform: translateY(-1px);
+}
+
+.section-header h2 {
+    display: flex;
+    align-items: center;
+}
+
+
+.report-container {
+    max-width: 210mm;
+    width: 100%;
+    margin: 0 auto 2rem auto;
+    background: white;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15);
+    /* Print Preview shadow */
+    min-height: 297mm;
+}
+
+/* Editable Indicators */
+.editable {
+    border-bottom: 1px dashed transparent;
+    transition: all 0.2s;
+    cursor: text;
+    padding: 0 2px;
+}
+
+.editable:hover,
+.editable:focus {
+    border-bottom: 1px dashed var(--primary-400);
+    background: var(--primary-50);
+    outline: none;
+    border-radius: 2px;
+}
+
+/* Report Header */
+.report-header {
+    background: linear-gradient(135deg, var(--primary-800) 0%, var(--primary-700) 100%);
+    color: white;
+    padding: 2rem 2.5rem;
+    position: relative;
+}
+
+.report-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.report-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.report-logo {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report-logo svg {
+    width: 28px;
+    height: 28px;
+}
+
+.report-header h1 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+}
+
+.report-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+.report-meta {
+    text-align: right;
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.report-meta p {
+    margin-bottom: 0.125rem;
+}
+
+.header-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-400), var(--primary-500), var(--primary-600));
+}
+
+/* Report Sections */
+.report-section {
+    background: white;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.report-section:last-of-type {
+    border-bottom: none;
+}
+
+.section-header {
+    padding: 1rem 2rem;
+    background: var(--bg-accent);
+    border-bottom: 1px solid var(--border-accent);
+}
+
+.section-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-800);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--primary-600);
+}
+
+/* Client Info Section */
+.client-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+}
+
+.client-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.client-info-item .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.client-info-item .value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Cash Flow Section */
+.cashflow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    align-items: center;
+    /* Changed from start to center for better alignment */
+}
+
+/* Fix grid blowout */
+.cashflow-grid>* {
+    min-width: 0;
+}
+
+.cashflow-card {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+}
+
+.income-card {
+    background: var(--success-bg);
+    border-color: #A7F3D0;
+}
+
+.expense-card {
+    background: var(--danger-bg);
+    border-color: #FECACA;
+}
+
+.cashflow-card h3 {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.cashflow-total {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.income-card .cashflow-total {
+    color: var(--success);
+}
+
+.expense-card .cashflow-total {
+    color: var(--danger);
+}
+
+.cashflow-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 0.375rem 0;
+    border-bottom: 1px dashed var(--border-light);
+}
+
+.breakdown-item:last-child {
+    border-bottom: none;
+}
+
+.breakdown-item .label {
+    color: var(--text-secondary);
+}
+
+.breakdown-item .value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.cashflow-chart-container {
+    position: relative;
+    height: 220px;
+    /* Slightly increased height */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cashflow-summary {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--border-light);
+    justify-content: center;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.summary-item .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.summary-item .value {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.summary-item.positive .value {
+    color: var(--success);
+}
+
+.summary-item.negative .value {
+    color: var(--danger);
+}
+
+/* Assets Section */
+.assets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    align-items: center;
+}
+
+/* Fix grid blowout */
+.assets-grid>* {
+    min-width: 0;
+}
+
+.assets-chart-container {
+    position: relative;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.total-assets-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.total-assets-overlay .label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.total-assets-overlay .value {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-700);
+}
+
+.assets-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.asset-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.asset-item:hover {
+    border-color: var(--primary-500);
+    background: var(--bg-accent);
+}
+
+.asset-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.asset-info {
+    flex: 1;
+}
+
+.asset-info .name {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.asset-info .amount {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.asset-percentage {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Stocks Table */
+.table-container {
+    padding: 1rem 2rem;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.data-table th {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: var(--bg-subtle);
+}
+
+.data-table td {
+    color: var(--text-secondary);
+}
+
+.data-table tbody tr:hover {
+    background: var(--bg-subtle);
+}
+
+/* Insurance Section */
+.insurance-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+}
+
+.insurance-card {
+    background: var(--bg-accent);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.insurance-card:hover {
+    border-color: var(--primary-500);
+}
+
+.insurance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-600), var(--primary-400));
+    border-radius: 3px 0 0 3px;
+}
+
+.insurance-card h4 {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 0.125rem;
+}
+
+.insurance-card .policy-name {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.insurance-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.insurance-detail {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.insurance-detail .label {
+    color: var(--text-muted);
+}
+
+.insurance-detail .value {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.insurance-summary {
+    padding: 0.75rem 2rem;
+    background: var(--bg-subtle);
+    border-top: 1px solid var(--border-light);
+    text-align: center;
+}
+
+/* Component Styles */
+
+/* Client Info Grid */
+.client-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.info-item span {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+/* Insurance Grid (Override old cards) */
+.insurance-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.insurance-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+}
+
+.insurance-card h4 {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.policy-name {
+    font-weight: 600;
+    color: var(--primary-700);
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.insurance-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.insurance-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Liabilities Grid */
+.liabilities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.liability-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+}
+
+.liability-card h3 {
+    font-size: 0.95rem;
+    color: var(--danger);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.liability-details {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-row .amount {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Goals Timeline (Horizontal List) */
+.goals-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.goal-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+}
+
+.goal-marker {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-gold);
+    flex-shrink: 0;
+}
+
+.goal-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.goal-header {
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 150px;
+    margin: 0;
+}
+
+.goal-timeline-info {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.goal-progress {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    margin: 0 1rem;
+    overflow: hidden;
+}
+
+.goal-progress-bar {
+    background: linear-gradient(90deg, var(--accent-gold-light), var(--accent-gold));
+}
+
+/* Net Worth Summary */
+.networth-summary {
+    display: none;
+}
+
+
+
+/* ============================================
+   SCREEN-ONLY ELEMENTS (Hidden in PDF/Print)
+   ============================================ */
+
+.report-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--bg-muted);
+}
+
+/* Report Footer */
+.report-footer {
+    background: var(--primary-800);
+    color: white;
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+.report-footer .disclaimer {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.25rem;
+}
+
+.report-footer .copyright {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ============================================
+   COVER PAGE STYLES - A4 Print
+   ============================================ */
+
+.report-cover {
+    display: none;
+    /* Hidden on screen by default */
+    height: 277mm;
+    background: white;
+    color: var(--text-primary);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 40mm 30mm;
+    text-align: center;
+    page-break-after: always;
+}
+
+.cover-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, var(--primary-600), var(--primary-500), var(--primary-400));
+}
+
+.cover-content {
+    z-index: 10;
+}
+
+.cover-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.cover-logo svg {
+    width: 48px;
+    height: 48px;
+}
+
+.cover-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-800);
+    margin-bottom: 0.5rem;
+}
+
+.cover-subtitle {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    letter-spacing: 1px;
+}
+
+.cover-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.cover-details .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 0.5rem;
+}
+
+.cover-details .label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.cover-details .value {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.cover-footer {
+    position: absolute;
+    bottom: 30mm;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   ADD ITEM BUTTON
+   ============================================ */
+
+.add-item-btn {
+    padding: 4px 10px;
+    background: var(--primary-600);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all var(--transition-fast);
+}
+
+.add-item-btn:hover {
+    background: var(--primary-700);
+}
+
+/* ============================================
+   INLINE EDITING STYLES
+   ============================================ */
+
+[contenteditable='true'] {
+    cursor: text;
+    transition: all var(--transition-fast);
+    border-radius: 2px;
+    padding: 1px 3px;
+    margin: -1px -3px;
+}
+
+[contenteditable='true']:hover {
+    background: rgba(37, 99, 235, 0.08);
+    outline: 1px dashed var(--primary-500);
+}
+
+[contenteditable='true']:focus {
+    background: rgba(37, 99, 235, 0.12);
+    outline: 2px solid var(--primary-500);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .cover-title {
+        font-size: 1.75rem;
+    }
+
+    .cover-subtitle {
+        font-size: 1rem;
+    }
+
+    .cashflow-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cashflow-chart-container {
+        order: -1;
+    }
+
+    .assets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .report-meta {
+        text-align: left;
+    }
+
+    .networth-summary {
+        flex-direction: column;
+    }
+
+    .networth-operator {
+        transform: rotate(90deg);
+    }
+
+    .goal-item {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .goal-item::before {
+        display: none;
+    }
+
+    .client-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .insurance-cards,
+    .liabilities-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   PRINT / PDF STYLES - A4 OPTIMIZED
+   ============================================ */
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 12mm 15mm;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: white !important;
+        color: #0f172a !important;
+        font-size: 9pt;
+        line-height: 1.3;
+    }
+
+    /* Hide interactive elements */
+    #inputView,
+    .no-print,
+    .report-actions,
+    .add-item-btn,
+    #backToInput,
+    #downloadReport,
+    .btn,
+    .floating-actions,
+    .report-header-modern,
+    [contenteditable]:hover,
+    [contenteditable]:focus {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    [contenteditable='true'] {
+        outline: none !important;
+        background: transparent !important;
+        cursor: default !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Cover Page */
+    .report-cover {
+        display: flex !important;
+        height: 267mm;
+        padding: 30mm 20mm;
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .cover-title {
+        font-size: 28pt;
+        color: #1e40af !important;
+    }
+
+    .cover-subtitle {
+        font-size: 12pt;
+    }
+
+    .cover-logo {
+        background: #2563eb !important;
+    }
+
+    .cover-decoration {
+        background: linear-gradient(90deg, #2563eb, #3b82f6, #60a5fa) !important;
+    }
+
+    /* Report Container */
+    .report-container {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        background: white !important;
+    }
+
+    /* ========== DASHBOARD GRID FOR PRINT ========== */
+    .dashboard-grid {
+        display: grid !important;
+        grid-template-columns: repeat(12, 1fr) !important;
+        gap: 8pt !important;
+        padding: 0 !important;
+    }
+
+    .col-span-12 {
+        grid-column: span 12 !important;
+    }
+
+    .col-span-8 {
+        grid-column: span 8 !important;
+    }
+
+    .col-span-6 {
+        grid-column: span 6 !important;
+    }
+
+    .col-span-4 {
+        grid-column: span 4 !important;
+    }
+
+    .col-span-3 {
+        grid-column: span 3 !important;
+    }
+
+    /* Dashboard Cards for Print */
+    .dash-card {
+        background: white !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 4pt !important;
+        padding: 10pt !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* KPI Cards - Styled with colored top border */
+    .kpi-card {
+        border-top: 3pt solid #2563eb !important;
+        padding: 8pt 10pt !important;
+    }
+
+    .kpi-card:nth-child(1) {
+        border-top-color: #2563eb !important;
+    }
+
+    /* Net Worth - Blue */
+    .kpi-card:nth-child(2) {
+        border-top-color: #059669 !important;
+    }
+
+    /* Surplus - Green */
+    .kpi-card:nth-child(3) {
+        border-top-color: #7c3aed !important;
+    }
+
+    /* Assets - Purple */
+
+    .kpi-label {
+        font-size: 7pt !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5pt;
+        color: #64748b !important;
+        margin-bottom: 2pt;
+    }
+
+    .kpi-value {
+        font-size: 16pt !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        background: none !important;
+        -webkit-text-fill-color: #0f172a !important;
+    }
+
+    .kpi-trend {
+        display: none !important;
+        /* Hide trend badge for print */
+    }
+
+    /* Section Titles for Print */
+    .section-title {
+        font-size: 10pt !important;
+        font-weight: 600 !important;
+        color: #1e40af !important;
+        margin-bottom: 6pt !important;
+        padding-bottom: 4pt;
+        border-bottom: 1pt solid #e2e8f0;
+    }
+
+    .section-title svg {
+        width: 14pt !important;
+        height: 14pt !important;
+        color: #2563eb !important;
+    }
+
+    /* Charts for Print */
+    .chart-wrapper {
+        height: 100pt !important;
+        min-height: 100pt !important;
+    }
+
+    canvas {
+        max-width: 100% !important;
+        max-height: 100pt !important;
+    }
+
+    /* Client Info Grid */
+    .client-info-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 6pt !important;
+        padding: 6pt 0 !important;
+    }
+
+    .client-info-item,
+    .info-item {
+        font-size: 8pt;
+    }
+
+    .client-info-item .label,
+    .info-item label {
+        font-size: 7pt !important;
+        color: #64748b !important;
+    }
+
+    .client-info-item .value,
+    .info-item span {
+        font-size: 9pt !important;
+        color: #0f172a !important;
+        font-weight: 600;
+    }
+
+    /* Tables for Print */
+    .modern-table {
+        font-size: 8pt !important;
+    }
+
+    .modern-table th {
+        background: #f1f5f9 !important;
+        color: #334155 !important;
+        padding: 6pt 8pt !important;
+        font-size: 7pt !important;
+        text-transform: uppercase;
+        letter-spacing: 0.3pt;
+    }
+
+    .modern-table td {
+        padding: 5pt 8pt !important;
+        color: #0f172a !important;
+        border-bottom: 0.5pt solid #e2e8f0 !important;
+    }
+
+    /* Insurance Cards */
+    .insurance-cards {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6pt !important;
+    }
+
+    .insurance-card {
+        background: #f8fafc !important;
+        border: 0.5pt solid #e2e8f0 !important;
+        padding: 6pt !important;
+        font-size: 7pt;
+    }
+
+    .insurance-card h4 {
+        font-size: 6pt !important;
+        color: #64748b !important;
+    }
+
+    .policy-name {
+        font-size: 8pt !important;
+        color: #1e40af !important;
+    }
+
+    /* Liabilities Grid */
+    .liabilities-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6pt !important;
+    }
+
+    .liability-card {
+        background: #fef2f2 !important;
+        border: 0.5pt solid #fecaca !important;
+        padding: 6pt !important;
+    }
+
+    .liability-card h3 {
+        font-size: 8pt !important;
+        color: #dc2626 !important;
+    }
+
+    .liability-details {
+        font-size: 7pt !important;
+    }
+
+    .detail-row .amount {
+        color: #0f172a !important;
+    }
+
+    /* Goals Timeline */
+    .goals-timeline {
+        gap: 6pt !important;
+    }
+
+    .goal-item {
+        padding: 6pt !important;
+        background: #f8fafc !important;
+    }
+
+    .goal-marker {
+        width: 24pt !important;
+        height: 24pt !important;
+        border: 1.5pt solid #2563eb !important;
+        background: white !important;
+    }
+
+    .goal-marker svg {
+        width: 12pt !important;
+        height: 12pt !important;
+    }
+
+    .goal-title {
+        font-size: 9pt !important;
+        color: #0f172a !important;
+    }
+
+    .goal-target {
+        font-size: 10pt !important;
+        color: #1d4ed8 !important;
+    }
+
+    .goal-timeline-info {
+        font-size: 7pt !important;
+    }
+
+    .goal-progress {
+        height: 5pt !important;
+        background: #e2e8f0 !important;
+    }
+
+    .goal-progress-bar {
+        background: #2563eb !important;
+    }
+
+    .goal-progress-text {
+        font-size: 6pt !important;
+    }
+
+    /* Assets Breakdown */
+    .assets-breakdown {
+        font-size: 7pt !important;
+    }
+
+    .asset-item {
+        padding: 4pt !important;
+        background: white !important;
+        border: 0.5pt solid #e2e8f0 !important;
+        margin-bottom: 3pt;
+    }
+
+    .asset-color {
+        width: 8pt !important;
+        height: 8pt !important;
+    }
+
+    .asset-info .name {
+        font-size: 7pt !important;
+    }
+
+    .asset-info .amount {
+        font-size: 8pt !important;
+        font-weight: 600;
+    }
+
+    /* Page Breaks */
+    .dash-card.col-span-12:nth-of-type(n+5) {
+        page-break-before: auto;
+    }
+
+    /* Force new page after main content sections */
+    #liabilitiesSection {
+        page-break-before: always;
+    }
+
+    /* Hide Net Worth summary (chart is enough) */
+    .networth-summary {
+        display: none !important;
+    }
+
+    /* Footer */
+    .report-footer {
+        background: #1e40af !important;
+        padding: 8pt 12pt;
+        margin-top: 10pt;
+    }
+
+    .report-footer .disclaimer {
+        font-size: 6pt;
+    }
+
+    .report-footer .copyright {
+        font-size: 7pt;
+    }
+}
+
+/* Responsive Design - Screen Only */
+@media screen and (max-width: 1024px) {
+    .cashflow-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .cashflow-chart-container {
+        order: -1;
+        /* Move chart to top on mobile */
+        height: 250px;
+    }
+
+    .assets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .insurance-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Screen-only utilities */
+@media screen {
+    .no-print {
+        display: block;
+    }
+
+    .no-screen {
+        display: none;
+    }
+}
+
+/* ============================================
+   COMPACT DASHBOARD STYLES
+   ============================================ */
+
+/* Compact Header */
+.report-header-compact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-bottom: 2px solid var(--primary-600);
+    margin-bottom: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.compact-logo {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.compact-logo svg {
+    width: 20px;
+    height: 20px;
+}
+
+.header-titles h1 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin: 0;
+}
+
+.header-titles p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.header-right {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Icon Resizing Fix */
+svg {
+    flex-shrink: 0;
+}
+
+/* Header Actions */
+.header-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Cash Flow Tri-Grid */
+.cashflow-tri-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 0 1.5rem 1rem 1.5rem;
+}
+
+.cf-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+/* Cash Flow Summary Bar */
+.cashflow-summary-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--slate-50);
+    margin-bottom: 1rem;
+}
+
+.cf-summary-item {
+    text-align: center;
+}
+
+.cf-summary-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cf-summary-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dominant);
+}
+
+.cf-summary-item.success .cf-summary-value {
+    color: var(--success);
+}
+
+.cf-summary-item.danger .cf-summary-value {
+    color: var(--danger);
+}
+
+/* Cash Flow Charts Grid - 2 Columns */
+.cashflow-charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 0 1.5rem 0.5rem 1.5rem;
+}
+
+.cashflow-charts-grid.two-cols {
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Cash Flow Bar Section */
+.cashflow-bar-section {
+    padding: 0.5rem 1.5rem 1rem 1.5rem;
+}
+
+.cf-bar-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+}
+
+/* Stacked Bar */
+.cf-stacked-bar {
+    display: flex;
+    height: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #e2e8f0;
+}
+
+.cf-bar-income {
+    background: #10B981;
+    transition: width 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+.cf-bar-expense {
+    background: #EF4444;
+    transition: width 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+/* Percentage labels inside bar */
+.bar-pct {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Color dot for legends */
+.color-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+/* Total in header */
+.cf-total {
+    font-weight: 700;
+    margin-left: auto;
+    margin-right: 0.5rem;
+}
+
+.cf-comparison-bar {
+    height: 50px;
+}
+
+.cf-chart-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.cf-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.35rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    background: var(--slate-100);
+}
+
+.cf-chart-header.success {
+    background: #f0fdf4;
+    color: var(--success);
+}
+
+.cf-chart-header.danger {
+    background: #fef2f2;
+    color: var(--danger);
+}
+
+.cf-chart-wrapper {
+    height: 120px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem auto;
+}
+
+.cf-chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 120px;
+    max-height: 120px;
+}
+
+/* Legacy cf-header for compatibility */
+.cf-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.cf-header.success {
+    background: #f0fdf4;
+    color: var(--success);
+}
+
+.cf-header.danger {
+    background: #fef2f2;
+    color: var(--danger);
+}
+
+/* Single Item Fallback - No Chart */
+.single-item-display {
+    padding: 0.75rem;
+    background: var(--slate-50);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.single-item-display .item-name {
+    font-weight: 600;
+    color: var(--text-dominant);
+    margin-bottom: 0.25rem;
+}
+
+.single-item-display .item-bar {
+    height: 8px;
+    background: var(--primary-500);
+    border-radius: 4px;
+    margin: 0.5rem 0;
+}
+
+.single-item-display .item-bar.success {
+    background: var(--success);
+}
+
+.single-item-display .item-bar.danger {
+    background: var(--danger);
+}
+
+.single-item-display .item-percentage {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+/* Net Worth Ratio */
+#networthRatio {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin: 0 4px;
+}
+
+/* Compact Dashboard Container */
+.compact-dashboard {
+    background: white;
+    padding: 0;
+}
+
+/* Client Info Bar */
+.client-bar {
+    background: var(--slate-50);
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.client-bar.center-content {
+    text-align: center;
+}
+
+.client-bar-content {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.client-bar-content .client-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.client-bar-content .client-info-item .label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+.client-bar-content .client-info-item .value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* KPI Strip */
+.kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.kpi-item {
+    padding: 1rem 1.5rem;
+    border-right: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.kpi-item:last-child {
+    border-right: none;
+}
+
+.kpi-item .kpi-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.kpi-item .kpi-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dominant);
+    /* 60% - Main values */
+}
+
+.kpi-item.kpi-primary .kpi-value {
+    color: var(--primary-700);
+}
+
+.kpi-item.kpi-success .kpi-value {
+    color: var(--success);
+}
+
+.kpi-item.kpi-info .kpi-value {
+    color: var(--primary-600);
+}
+
+/* Section Row (Two Column) */
+.section-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.section-half {
+    padding: 1rem 1.5rem;
+    border-right: 1px solid var(--border-light);
+}
+
+.section-half:last-child {
+    border-right: none;
+}
+
+/* Section Header Compact */
+.section-header-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-accent);
+    /* 10% - Accent for headers */
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.section-header-compact svg {
+    width: 16px;
+    height: 16px;
+    color: var(--primary-600);
+}
+
+.section-header-compact .section-total {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--success);
+}
+
+.section-header-compact .section-total.expense {
+    color: var(--danger);
+}
+
+/* Mini Add Button */
+.add-item-btn-mini {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-400);
+    background: transparent;
+    color: var(--primary-600);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.5rem;
+    transition: all 0.2s;
+}
+
+.add-item-btn-mini:hover {
+    background: var(--primary-50);
+    border-color: var(--primary-600);
+}
+
+/* Compact List (Income/Expense) */
+.compact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.compact-list .breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 0.375rem 0.5rem;
+    background: var(--slate-50);
+    border-radius: 4px;
+    border: none;
+}
+
+.compact-list .breakdown-item .label {
+    color: var(--text-secondary);
+}
+
+.compact-list .breakdown-item .value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Asset Mini Chart */
+.asset-mini-chart {
+    height: 120px;
+    margin-bottom: 0.75rem;
+}
+
+/* Compact Asset List */
+.compact-asset-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.compact-asset-list .asset-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem;
+    background: var(--slate-50);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    border: none;
+}
+
+.compact-asset-list .asset-color {
+    width: 8px;
+    height: 8px;
+}
+
+.compact-asset-list .asset-info {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.compact-asset-list .asset-info .name {
+    color: var(--text-secondary);
+}
+
+.compact-asset-list .asset-info .amount {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.75rem;
+}
+
+.compact-asset-list .asset-percentage {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    min-width: 32px;
+    text-align: right;
+}
+
+/* Net Worth Mini */
+.networth-mini {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.networth-mini canvas {
+    height: 180px !important;
+}
+
+.networth-legend {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.networth-legend strong {
+    font-weight: 700;
+}
+
+/* Liability Chart Container - match cf-chart-wrapper size */
+.liability-chart-container {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Net Worth Summary Row - Progress Bar Style */
+.networth-summary-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.networth-progress-container {
+    width: 100%;
+    padding: 0 1.5rem;
+}
+
+.networth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.networth-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.networth-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-accent);
+}
+
+/* Simplified Net Worth */
+.networth-simple {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.networth-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.networth-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-accent);
+}
+
+.networth-progress-bar {
+    height: 12px;
+    background: linear-gradient(90deg, #EF4444 0%, #F59E0B 50%, #10B981 100%);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.networth-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: transparent;
+    border-right: 3px solid #1e293b;
+    transition: width 0.5s ease-out;
+}
+
+.networth-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    gap: 1rem;
+}
+
+.networth-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.networth-detail .detail-label {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.networth-detail .detail-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.networth-detail .detail-value.success {
+    color: #10B981;
+}
+
+.networth-detail .detail-value.danger {
+    color: #EF4444;
+}
+
+.networth-detail .detail-value.primary {
+    color: var(--text-accent);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+/* Section Compact (Full Width) */
+.section-compact {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Compact Table */
+.compact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+.compact-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: var(--slate-50);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.compact-table td {
+    padding: 0.5rem 0.75rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.compact-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Insurance Compact Grid */
+.insurance-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.insurance-compact-grid .insurance-card {
+    background: var(--slate-50);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0.75rem;
+    border-left: 3px solid var(--primary-600);
+}
+
+.insurance-compact-grid .insurance-card h4 {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.insurance-compact-grid .policy-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-700);
+    margin-bottom: 0.5rem;
+}
+
+.insurance-compact-grid .insurance-details {
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.insurance-compact-grid .insurance-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Goals Compact */
+.goals-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.goals-compact .goal-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--slate-50);
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+}
+
+.goals-compact .goal-marker {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-100);
+    border: 2px solid var(--primary-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.goals-compact .goal-marker svg {
+    width: 14px;
+    height: 14px;
+    color: var(--primary-600);
+}
+
+.goals-compact .goal-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.goals-compact .goal-header {
+    min-width: 120px;
+}
+
+.goals-compact .goal-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.goals-compact .goal-target {
+    font-size: 0.75rem;
+    color: var(--primary-600);
+    font-weight: 600;
+}
+
+.goals-compact .goal-timeline-info {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.goals-compact .goal-progress {
+    flex: 1;
+    height: 8px;
+    background: var(--slate-200);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.goals-compact .goal-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-600));
+    border-radius: 4px;
+}
+
+.goals-compact .goal-progress-text {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    min-width: 48px;
+    text-align: right;
+}
+
+/* Liability Compact Items */
+.compact-list .liability-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: #FEF2F2;
+    border-radius: 4px;
+    border-left: 3px solid var(--danger);
+}
+
+.compact-list .liability-item .name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--danger);
+}
+
+.compact-list .liability-item .details {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 1rem;
+}
+
+/* ============================================
+   COMPACT PRINT STYLES
+   ============================================ */
+
+@media print {
+
+    /* ========== CRITICAL FIXES ========== */
+    /* Hide ALL UI elements from PDF */
+    #inputView,
+    #backToInput,
+    #downloadReport,
+    .report-actions,
+    .add-item-btn,
+    .no-print,
+    .report-header.no-print {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Fix A4 width overflow */
+    body,
+    html {
+        width: 210mm !important;
+        max-width: 210mm !important;
+        overflow-x: hidden !important;
+    }
+
+    .report-container {
+        width: 100% !important;
+        max-width: 210mm !important;
+        padding: 0 10mm !important;
+        margin: 0 !important;
+        background: white !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Fix faded/pale sections - remove transparency effects */
+    .cashflow-card,
+    .income-card,
+    .expense-card,
+    .asset-item,
+    .insurance-card,
+    .liability-card {
+        background: #ffffff !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        opacity: 1 !important;
+    }
+
+    .cashflow-card h3,
+    .breakdown-item .label,
+    .asset-item .name {
+        color: #333 !important;
+        font-weight: 600 !important;
+    }
+
+    .income-card .cashflow-total {
+        color: #059669 !important;
+    }
+
+    .expense-card .cashflow-total {
+        color: #dc2626 !important;
+    }
+
+    /* Fix cover page text overlap */
+    .report-cover {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 280mm !important;
+        padding: 25mm 20mm !important;
+        background: white !important;
+        color: black !important;
+        page-break-after: always !important;
+        position: relative !important;
+    }
+
+    .cover-content {
+        flex: 1;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+
+    .cover-details {
+        margin-top: 30mm !important;
+    }
+
+    .cover-footer {
+        position: absolute !important;
+        bottom: 15mm !important;
+        left: 0 !important;
+        right: 0 !important;
+        text-align: center !important;
+        font-size: 10pt !important;
+        color: #666 !important;
+    }
+
+    .cover-decoration {
+        display: none !important;
+    }
+
+    /* ========== END CRITICAL FIXES ========== */
+}
+
+/* End of print-only restrictions. Following styles are now global to unify layout. */
+
+/* Compact Dashboard Print - Restored & Fixed */
+body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.compact-dashboard {
+    font-size: 11.5pt;
+    /* Reverted to 11.5pt */
+    background: white !important;
+}
+
+.report-header-compact {
+    padding: 14pt 20pt;
+    /* Reverted padding */
+    border-bottom: 2pt solid #2563eb;
+    background: white !important;
+}
+
+.compact-logo {
+    width: 32pt;
+    /* Reverted */
+    height: 32pt;
+}
+
+.header-titles h1 {
+    font-size: 16pt;
+    /* Reverted */
+}
+
+.header-titles p {
+    font-size: 10pt;
+}
+
+/* Client Bar - Keep white, slightly larger text */
+/* Client Bar - Large & Centered */
+.client-bar {
+    padding: 16pt 20pt;
+    background: transparent !important;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.client-bar .grid-cols-4 {
+    gap: 16pt;
+}
+
+.client-info-item .label {
+    font-size: 10pt;
+    color: #64748B;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-bottom: 4pt;
+}
+
+.client-info-item .value {
+    font-size: 18pt !important;
+    font-weight: 800;
+    text-align: center;
+    width: 100%;
+    color: #0f172a;
+}
+
+/* KPI Centering */
+.kpi-strip {
+    background: white !important;
+}
+
+.kpi-item {
+    padding: 14pt 10pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: white !important;
+}
+
+.kpi-item .kpi-label {
+    font-size: 9pt;
+    margin-bottom: 4pt;
+}
+
+.kpi-item .kpi-value {
+    font-size: 16pt;
+}
+
+.section-compact {
+    background: white !important;
+}
+
+.compact-table th {
+    font-size: 9.5pt;
+    padding: 8pt 10pt;
+    background: white !important;
+    border-bottom: 1pt solid #cbd5e1;
+}
+
+.compact-table tr:nth-child(even),
+.compact-table tr:nth-child(odd) {
+    background: white !important;
+}
+
+.compact-table td {
+    font-size: 10.5pt;
+    padding: 8pt 10pt;
+}
+
+/* Goals */
+.goals-compact .goal-title {
+    font-size: 13pt;
+    font-weight: 700;
+    margin-bottom: 4pt;
+}
+
+.goals-compact .goal-target {
+    font-size: 16pt !important;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* ========== CHART PRINT FIXES (CRITICAL) ========== */
+/* 
+       Problem: Charts were stretching horizontally. 
+       Fix: Enforce strict width/height equality for doughnuts.
+    */
+
+/* Cash Flow Tri-Grid*/
+.cashflow-tri-grid {
+    gap: 12pt;
+    grid-template-columns: 1fr 140pt 1fr;
+    padding: 12pt 20pt;
+    align-items: start;
+    background: white !important;
+}
+
+/* Cash Flow Chart - Strictly Square */
+.cf-chart-wrapper {
+    width: 140pt !important;
+    min-width: 140pt !important;
+    max-width: 140pt !important;
+    height: 140pt !important;
+    min-height: 140pt !important;
+    max-height: 140pt !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    margin: 0 auto !important;
+    /* Center it */
+    background: transparent !important;
+}
+
+.cf-chart-wrapper canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    /* Ensure canvas doesn't stretch */
+}
+
+.cf-header {
+    font-size: 9.5pt;
+    padding: 8pt;
+    margin-bottom: 6pt;
+}
+
+/* Asset Mini Chart - Strictly Square */
+.asset-mini-chart {
+    /* Was 100% width, causing stretch. Fixed to 130pt */
+    width: 130pt !important;
+    min-width: 130pt !important;
+    max-width: 130pt !important;
+
+    height: 130pt !important;
+    min-height: 130pt !important;
+    max-height: 130pt !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    margin: 0 auto 10pt auto !important;
+    /* Center horizontally */
+    background: transparent !important;
+}
+
+.asset-mini-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+.compact-asset-list .asset-item {
+    font-size: 9.5pt;
+    padding: 6pt 10pt;
+    margin-bottom: 3pt;
+}
+
+/* Net Worth Chart & Legend */
+.networth-mini {
+    height: auto !important;
+    padding: 14pt 0 !important;
+}
+
+.networth-mini canvas {
+    width: 100% !important;
+    height: 160pt !important;
+    max-height: 160pt !important;
+    object-fit: contain;
+    background: transparent !important;
+}
+
+/* Optimized Net Worth Legend Row */
+.networth-legend {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 16pt !important;
+    /* Space between items */
+    margin-top: 8pt !important;
+    font-size: 10.5pt !important;
+    background: transparent !important;
+    width: 100% !important;
+}
+
+.networth-legend .legend-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+}
+
+.networth-legend .ratio {
+    background: transparent !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+    padding: 0 !important;
+}
+
+/* Reuse previous Page Break logic */
+.section-compact,
+.section-row,
+.section-half,
+.cashflow-tri-grid,
+.kpi-strip,
+.kpi-item,
+.client-bar,
+.compact-table,
+.report-header-compact {
+    background: white !important;
+}
+
+.section-compact,
+.section-row,
+.section-half,
+.cashflow-tri-grid {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+#stocksSection {
+    page-break-before: always;
+}
+
+.report-cover {
+    page-break-after: always;
+    height: 100vh !important;
+    max-height: 290mm;
+    padding: 20mm !important;
+    background: white !important;
+}
+
+.report-cover+* {
+    page-break-before: always;
+}
+
+/* Ensure chart columns don't overflow */
+.cf-col {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.chart-col {
+    flex-shrink: 0 !important;
+}
+
+/* ============================================
+   PRINT OVERRIDES - Force Screen Layout
+   ============================================ */
+@media print {
+
+    /* ===== FONT SIZE OVERRIDES ===== */
+    .compact-dashboard {
+        font-size: 11.5pt !important;
+    }
+
+    /* Client Data - CORRECT SELECTORS */
+    .client-info-item .value,
+    .client-bar-content .client-info-item .value,
+    .client-bar .client-info-item .value {
+        font-size: 18pt !important;
+        font-weight: 800 !important;
+        color: #0f172a !important;
+    }
+
+    .client-info-item .label,
+    .client-bar-content .client-info-item .label,
+    .client-bar .client-info-item .label {
+        font-size: 10pt !important;
+        color: #64748b !important;
+    }
+
+    /* Goals */
+    .goals-compact .goal-target {
+        font-size: 16pt !important;
+    }
+
+    .goals-compact .goal-title {
+        font-size: 13pt !important;
+    }
+
+    /* KPI */
+    .kpi-item .kpi-value {
+        font-size: 16pt !important;
+    }
+
+    /* ===== BACKGROUND REMOVAL - COMPLETE LIST ===== */
+    /* NOTE: .cf-header.success and .cf-header.danger are NOT included - they keep their colors */
+    body,
+    #reportView,
+    .compact-dashboard,
+    .report-container,
+    .section-compact,
+    .section-row,
+    .section-half,
+    .kpi-strip,
+    .kpi-item,
+    .client-bar,
+    .client-bar-content,
+    .client-info-item,
+    .report-header-compact,
+    .cashflow-tri-grid,
+    .cf-col,
+    .compact-list,
+    .compact-list li,
+    .compact-asset-list,
+    .asset-item,
+    .networth-mini,
+    .networth-legend,
+    .compact-table,
+    .compact-table th,
+    .compact-table tr,
+    .compact-table td,
+    .insurance-compact-grid,
+    .insurance-card-compact,
+    .goals-compact,
+    .goal-item,
+    .liabilities-grid,
+    .liability-card,
+    #networthRatio {
+        background: white !important;
+        background-color: white !important;
+    }
+
+    /* ===== BAR CHART FIX ===== */
+    .networth-mini canvas,
+    #networthChart {
+        max-height: 200pt !important;
+        height: 160pt !important;
+        min-height: 140pt !important;
+        width: 100% !important;
+    }
+
+    canvas {
+        max-height: none !important;
+    }
+
+    /* ===== CHART CONTAINER FIXES ===== */
+    .cf-chart-wrapper {
+        width: 100pt !important;
+        height: 100pt !important;
+        min-width: 100pt !important;
+        min-height: 100pt !important;
+        max-width: 100pt !important;
+        max-height: 100pt !important;
+        margin: 0 auto 4pt auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .cf-chart-wrapper canvas {
+        width: 100pt !important;
+        height: 100pt !important;
+        max-width: 100pt !important;
+        max-height: 100pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* ===== INCOME/EXPENSE HEADER COLORS ===== */
+    /* Keep their original tinted backgrounds */
+    .cf-header.success {
+        background: #f0fdf4 !important;
+        color: #10B981 !important;
+    }
+
+    .cf-header.danger {
+        background: #fef2f2 !important;
+        color: #EF4444 !important;
+    }
+
+    /* ===== CLIENT BAR TOP PADDING ===== */
+    .client-bar {
+        margin-top: 12pt !important;
+        padding-top: 16pt !important;
+    }
+
+    /* ===== COVER PAGE FIX ===== */
+    .report-cover {
+        height: auto !important;
+        max-height: 260mm !important;
+        min-height: 200mm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+    }
+
+    /* Borders */
+    .cf-header,
+    .kpi-item,
+    .section-compact,
+    .section-half {
+        border-color: #e2e8f0 !important;
+    }
+
+    /* Net Worth Progress Bar Print */
+    .networth-summary-row {
+        display: flex !important;
+        justify-content: center !important;
+        padding: 6pt 12pt !important;
+        background: white !important;
+        page-break-inside: avoid !important;
+    }
+
+    .networth-progress-container {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .networth-simple {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        margin-bottom: 4pt !important;
+    }
+
+    .networth-label {
+        font-size: 7pt !important;
+    }
+
+    .networth-percentage {
+        font-size: 14pt !important;
+    }
+
+    .networth-progress-bar {
+        height: 10pt !important;
+        border-radius: 5pt !important;
+        background: linear-gradient(90deg, #EF4444 0%, #F59E0B 50%, #10B981 100%) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .networth-progress-fill {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100% !important;
+        background: transparent !important;
+        border-right: 2pt solid #1e293b !important;
+    }
+
+    /* ===== STACKED BAR PRINT ===== */
+    .cashflow-bar-section {
+        padding: 4pt 16pt 8pt 16pt !important;
+    }
+
+    .cf-bar-label {
+        font-size: 6pt !important;
+    }
+
+    .cf-stacked-bar {
+        height: 14pt !important;
+        border-radius: 7pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .cf-bar-income,
+    .cf-bar-expense {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-width: 25pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .bar-pct {
+        font-size: 6pt !important;
+        color: white !important;
+    }
+
+    /* ===== CF TOTAL IN HEADERS ===== */
+    .cf-total {
+        font-size: 10pt !important;
+    }
+
+    .cf-chart-header {
+        font-size: 7pt !important;
+        padding: 3pt 5pt !important;
+    }
+
+    .cf-chart-header.success {
+        background: #f0fdf4 !important;
+        color: #10B981 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .cf-chart-header.danger {
+        background: #fef2f2 !important;
+        color: #EF4444 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* ===== CASHFLOW GRID ===== */
+    .cashflow-charts-grid {
+        gap: 8pt !important;
+        padding: 0 12pt 4pt 12pt !important;
+    }
+
+    /* ===== COMPACT LAYOUT FOR ONE PAGE ===== */
+    .section-row {
+        gap: 8pt !important;
+    }
+
+    .section-half {
+        padding: 6pt 10pt !important;
+    }
+
+    .compact-list {
+        gap: 2pt !important;
+    }
+
+    .breakdown-item {
+        padding: 2pt 0 !important;
+        font-size: 8pt !important;
+    }
+}
