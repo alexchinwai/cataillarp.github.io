@@ -1606,7 +1606,7 @@ body:hover .floating-actions {
         font-weight: 700 !important;
         color: var(--text-dominant) !important;
         background: none !important;
-        -webkit-text-fill-color: #0f172a !important;
+        -webkit-text-fill-color: var(--text-dominant) !important;
     }
 
     .kpi-trend {
@@ -2554,11 +2554,11 @@ svg {
 }
 
 .networth-detail .detail-value.success {
-    color: #10B981;
+    color: var(--success);
 }
 
 .networth-detail .detail-value.danger {
-    color: #EF4444;
+    color: var(--danger);
 }
 
 .networth-detail .detail-value.primary {
@@ -2814,11 +2814,11 @@ svg {
     }
 
     .income-card .cashflow-total {
-        color: #059669 !important;
+        color: var(--success) !important;
     }
 
     .expense-card .cashflow-total {
-        color: #dc2626 !important;
+        color: var(--danger) !important;
     }
 
     /* Fix cover page text overlap */
@@ -3815,12 +3815,12 @@ body {
     /* Keep their original tinted backgrounds */
     .cf-header.success {
         background: #f0fdf4 !important;
-        color: #10B981 !important;
+        color: var(--success) !important;
     }
 
     .cf-header.danger {
         background: #fef2f2 !important;
-        color: #EF4444 !important;
+        color: var(--danger) !important;
     }
 
     /* ===== CLIENT BAR TOP PADDING ===== */
@@ -3937,14 +3937,14 @@ body {
 
     .cf-chart-header.success {
         background: #f0fdf4 !important;
-        color: #10B981 !important;
+        color: var(--success) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
 
     .cf-chart-header.danger {
         background: #fef2f2 !important;
-        color: #EF4444 !important;
+        color: var(--danger) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
