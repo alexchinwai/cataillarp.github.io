@@ -1467,7 +1467,7 @@ body:hover .floating-actions {
         margin: 0;
         padding: 0;
         background: white !important;
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
         font-size: 9pt;
         line-height: 1.3;
     }
@@ -1507,7 +1507,7 @@ body:hover .floating-actions {
 
     .cover-title {
         font-size: 28pt;
-        color: #1e40af !important;
+        color: var(--text-accent) !important;
     }
 
     .cover-subtitle {
@@ -1597,14 +1597,14 @@ body:hover .floating-actions {
         font-size: 7pt !important;
         text-transform: uppercase;
         letter-spacing: 0.5pt;
-        color: #64748b !important;
+        color: var(--text-secondary) !important;
         margin-bottom: 2pt;
     }
 
     .kpi-value {
         font-size: 16pt !important;
         font-weight: 700 !important;
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
         background: none !important;
         -webkit-text-fill-color: #0f172a !important;
     }
@@ -1618,7 +1618,7 @@ body:hover .floating-actions {
     .section-title {
         font-size: 10pt !important;
         font-weight: 600 !important;
-        color: #1e40af !important;
+        color: var(--text-accent) !important;
         margin-bottom: 6pt !important;
         padding-bottom: 4pt;
         border-bottom: 1pt solid #e2e8f0;
@@ -1627,7 +1627,7 @@ body:hover .floating-actions {
     .section-title svg {
         width: 14pt !important;
         height: 14pt !important;
-        color: #2563eb !important;
+        color: var(--text-accent) !important;
     }
 
     /* Charts for Print */
@@ -1657,13 +1657,13 @@ body:hover .floating-actions {
     .client-info-item .label,
     .info-item label {
         font-size: 7pt !important;
-        color: #64748b !important;
+        color: var(--text-secondary) !important;
     }
 
     .client-info-item .value,
     .info-item span {
         font-size: 9pt !important;
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
         font-weight: 600;
     }
 
@@ -1674,7 +1674,7 @@ body:hover .floating-actions {
 
     .modern-table th {
         background: #f1f5f9 !important;
-        color: #334155 !important;
+        color: var(--text-dominant) !important;
         padding: 6pt 8pt !important;
         font-size: 7pt !important;
         text-transform: uppercase;
@@ -1683,7 +1683,7 @@ body:hover .floating-actions {
 
     .modern-table td {
         padding: 5pt 8pt !important;
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
         border-bottom: 0.5pt solid #e2e8f0 !important;
     }
 
@@ -1703,12 +1703,12 @@ body:hover .floating-actions {
 
     .insurance-card h4 {
         font-size: 6pt !important;
-        color: #64748b !important;
+        color: var(--text-secondary) !important;
     }
 
     .policy-name {
         font-size: 8pt !important;
-        color: #1e40af !important;
+        color: var(--text-accent) !important;
     }
 
     /* Liabilities Grid */
@@ -1734,7 +1734,7 @@ body:hover .floating-actions {
     }
 
     .detail-row .amount {
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
     }
 
     /* Goals Timeline */
@@ -1761,12 +1761,12 @@ body:hover .floating-actions {
 
     .goal-title {
         font-size: 9pt !important;
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
     }
 
     .goal-target {
         font-size: 10pt !important;
-        color: #1d4ed8 !important;
+        color: var(--text-accent) !important;
     }
 
     .goal-timeline-info {
@@ -2809,7 +2809,7 @@ svg {
     .cashflow-card h3,
     .breakdown-item .label,
     .asset-item .name {
-        color: #333 !important;
+        color: var(--text-dominant) !important;
         font-weight: 600 !important;
     }
 
@@ -2855,7 +2855,7 @@ svg {
         right: 0 !important;
         text-align: center !important;
         font-size: 10pt !important;
-        color: #666 !important;
+        color: var(--text-secondary) !important;
     }
 
     .cover-decoration {
@@ -2916,7 +2916,7 @@ body {
 
 .client-info-item .label {
     font-size: 10pt;
-    color: #64748B;
+    color: var(--text-secondary);
     text-align: center;
     width: 100%;
     display: block;
@@ -2928,7 +2928,7 @@ body {
     font-weight: 800;
     text-align: center;
     width: 100%;
-    color: #0f172a;
+    color: var(--text-dominant);
 }
 
 /* KPI Centering */
@@ -2985,7 +2985,7 @@ body {
 
 .goals-compact .goal-target {
     font-size: 16pt !important;
-    color: #1e293b;
+    color: var(--text-dominant);
     font-weight: 600;
 }
 
@@ -3105,7 +3105,7 @@ body {
 .networth-legend .ratio {
     background: transparent !important;
     font-weight: 600 !important;
-    color: #475569 !important;
+    color: var(--text-secondary) !important;
     padding: 0 !important;
 }
 
@@ -3713,14 +3713,14 @@ body {
     .client-bar .client-info-item .value {
         font-size: 18pt !important;
         font-weight: 800 !important;
-        color: #0f172a !important;
+        color: var(--text-dominant) !important;
     }
 
     .client-info-item .label,
     .client-bar-content .client-info-item .label,
     .client-bar .client-info-item .label {
         font-size: 10pt !important;
-        color: #64748b !important;
+        color: var(--text-secondary) !important;
     }
 
     /* Goals */
