@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dify Chatbot Interface</title>
+    <style>
+        /* This removes all scrollbars and margins so the bot looks native */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #ffffff;
+            font-family: -apple-system, system-ui, sans-serif;
+        }
+
+        /* Container to hold the iframe */
+        .main-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Styling the Dify Iframe */
+        iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+            flex-grow: 1;
+        }
+
+        /* Loading state (Optional) */
+        .loading-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loading-text">Loading Assistant...</div>
+
+    <div class="main-container">
+        <iframe
+            src="https://udify.app/chatbot/3m1RsMcIg0PE0lrx"
+            allow="microphone; clipboard-write"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+</body>
+</html>
