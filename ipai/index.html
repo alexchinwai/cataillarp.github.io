@@ -3,56 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dify Chatbot Interface</title>
+    <title>AI Assistant</title>
     <style>
-        /* This removes all scrollbars and margins so the bot looks native */
+        :root {
+            --bg-color: #f9f9f9;
+            --chat-bg: #ffffff;
+            --primary: #007bff;
+            --text-main: #333;
+            --text-secondary: #666;
+        }
+
         body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            background-color: #ffffff;
-            font-family: -apple-system, system-ui, sans-serif;
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
         }
 
-        /* Container to hold the iframe */
-        .main-container {
-            display: flex;
+        #chat-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
             height: 100vh;
-            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            background: var(--chat-bg);
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
-        /* Styling the Dify Iframe */
-        iframe {
+        #chat-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 15px;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .user {
+            align-self: flex-end;
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot {
+            align-self: flex-start;
+            background-color: #eee;
+            color: var(--text-main);
+            border-bottom-left-radius: 2px;
+        }
+
+        #input-area {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
             border: none;
-            width: 100%;
-            height: 100%;
-            flex-grow: 1;
+            padding: 0 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
-        /* Loading state (Optional) */
-        .loading-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            color: #888;
-        }
+        button:disabled { background: #ccc; }
+
+        .loading { font-style: italic; color: #999; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="loading-text">Loading Assistant...</div>
-
-    <div class="main-container">
-        <iframe
-            src="https://udify.app/chatbot/3m1RsMcIg0PE0lrx"
-            allow="microphone; clipboard-write"
-            allowfullscreen>
-        </iframe>
+<div id="chat-wrapper">
+    <div id="chat-header">
+        <h2 style="margin:0; font-size: 1.2rem;">AI Assistant</h2>
     </div>
+
+    <div id="chat-messages">
+        <div class="message bot">Hello! How can I help you today?</div>
+    </div>
+
+    <div id="input-area">
+        <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+
+<script>
+    const API_KEY = 'app-m1vIJGnO33wumsmYkqwLbhNz'; // PASTE YOUR KEY HERE
+    const BASE_URL = 'https://api.dify.ai/v1'; // Default Dify Cloud URL
+    
+    const messagesContainer = document.getElementById('chat-messages');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    
+    let conversationId = ""; // Track session
+
+    async function sendMessage() {
+        const query = userInput.value.trim();
+        if (!query) return;
+
+        // Add User Message to UI
+        addMessage(query, 'user');
+        userInput.value = '';
+        sendBtn.disabled = true;
+
+        try {
+            const response = await fetch(`${BASE_URL}/chat-messages`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    inputs: {},
+                    query: query,
+                    response_mode: "blocking",
+                    user: "guest_user",
+                    conversation_id: conversationId
+                })
+            });
+
+            const data = await response.json();
+            
+            if (data.answer) {
+                addMessage(data.answer, 'bot');
+                conversationId = data.conversation_id; // Save ID for context
+            } else {
+                addMessage("Error: Could not get response.", 'bot');
+            }
+        } catch (error) {
+            console.error(error);
+            addMessage("Error connecting to the server.", 'bot');
+        } finally {
+            sendBtn.disabled = false;
+        }
+    }
+
+    function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `message ${sender}`;
+        div.innerText = text;
+        messagesContainer.appendChild(div);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+</script>
 
 </body>
 </html>
