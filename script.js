@@ -268,3 +268,54 @@ document.querySelectorAll('.nav a[href^="#"]').forEach(link => {
     if (isOpen()) nav.classList.remove('nav--hidden');
   }, {passive:true});
 })();
+
+/* =========================
+   7) Scroll reveal (IntersectionObserver)
+   ========================= */
+(function(){
+  var els = document.querySelectorAll('.reveal, .reveal--left');
+  if (!els.length || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+
+/* =========================
+   8) Animated stat counters
+   ========================= */
+(function(){
+  var nums = document.querySelectorAll('.stat__number[data-target]');
+  if (!nums.length || !('IntersectionObserver' in window)) return;
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      var target = parseFloat(el.dataset.target);
+      var isDecimal = String(target).indexOf('.') !== -1;
+      var duration = 1500;
+      var start = performance.now();
+
+      function step(now) {
+        var t = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var val = eased * target;
+        el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val);
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  nums.forEach(function(el){ io.observe(el); });
+})();
