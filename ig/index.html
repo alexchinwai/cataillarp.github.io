@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catail Larp</title>
+<!--
+  渠道歸因 redirect — IG bio 專用(source=ig,token 📷)
+  建檔 2026-08-01。點解要呢一層:IG 會將 bio 條 wa.me link 二次編碼
+  (% → %25),客人個 WhatsApp 預填出嚟變成 "Hi~%20%E5%96%BA…" 亂碼,
+  好多人見到似壞咗就直接刪走 → 連 emoji token 都冇埋 = 歸因收唔到。
+  由自己個網跳最後一 hop,冇第三方 rewrite,預填就正常。
+  規格出處:劇本殺/marketing/attribution/README.md §2
+  改文案 = 同時改 README 嗰張表,兩邊唔對就係 bug。
+-->
+<meta http-equiv="refresh" content="0;url=https://wa.me/85268984813?text=Hi~%20%E5%96%BAIG%E8%A6%8B%E5%88%B0%20%E6%83%B3%E5%95%8F%E4%B8%8B%F0%9F%93%B7">
+<script>
+  // JS 行先(快過 meta refresh,而且由 browser 自己編碼,保證啱)。
+  // replace() 唔留 history,客人撳返上一頁唔會彈返嚟呢版。
+  location.replace("https://wa.me/85268984813?text=" + encodeURIComponent("Hi~ 喺IG見到 想問下📷"));
+</script>
+<style>
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+       background:#14161e;color:#f0ead8;text-align:center;
+       font-family:"PingFang HK","PingFang TC","Noto Sans TC",sans-serif}
+  a{color:#d4a24e}
+</style>
+</head>
+<body>
+  <p>
+    帶緊你去 WhatsApp…<br>
+    <a href="https://wa.me/85268984813?text=Hi~%20%E5%96%BAIG%E8%A6%8B%E5%88%B0%20%E6%83%B3%E5%95%8F%E4%B8%8B%F0%9F%93%B7">冇自動跳就撳呢度</a>
+  </p>
+</body>
+</html>
