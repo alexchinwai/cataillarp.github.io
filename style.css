@@ -915,6 +915,7 @@ body {
 }
 .footer__logo {
   height: 3rem;
+  width: auto;
   margin-bottom: 8px;
 }
 .footer__brand p {
